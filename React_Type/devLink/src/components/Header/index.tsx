@@ -18,7 +18,7 @@ export function Header() {
                     <Link to="/admin/social">Redes Sociais</Link>
                     
                 </div >
-                <button onClick={handleLogout}><BiLogOut size={28} color="#db2629"/></button>
+                <button className="cursor-pointer" onClick={handleLogout}><BiLogOut size={28} color="#db2629"/></button>
             </nav>
         </header>
     )
