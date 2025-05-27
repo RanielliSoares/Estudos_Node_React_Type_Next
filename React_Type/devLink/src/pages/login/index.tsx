@@ -1,14 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useState, type FormEvent } from "react";
+import { auth } from '../../services/firebaseConnection'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent) {
-    e.preventDefault;
-    alert('Clicou')
+
+    e.preventDefault();
+    if (email === '' || senha === '') {
+      alert('Por favor, insira seu login e senha')
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        navigate('/admin', { replace: true })
+      })
+      .catch((error) => {
+        alert('Usuário ou senha incorretos!')
+        setEmail('');
+        setSenha('');
+
+      })
   }
 
   return (
